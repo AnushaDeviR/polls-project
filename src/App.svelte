@@ -1,12 +1,29 @@
 <script>
   import Footer from "./components/Footer.svelte";
   import Header from "./components/Header.svelte";
+  import Tabs from "./reuseable/Tabs.svelte";
+
+  // Tabs
+  const CURRENT_POLLS = "Current Polls";
+  const ADD_NEW_POLL = "Add New Poll";
+
+  let tabList = [CURRENT_POLLS, ADD_NEW_POLL];
+  let activeTab = CURRENT_POLLS;
+
+  const handleTabChange = (e) => {
+    activeTab = e.detail;
+  };
 </script>
 
 <Header />
 
 <main>
-  <!-- TODO:  add tabs to add and show polls-->
+  <Tabs {tabList} {activeTab} on:handleTabChange={handleTabChange} />
+  {#if activeTab === CURRENT_POLLS}
+    <p>Poll list component goes here</p>
+  {:else if activeTab === ADD_NEW_POLL}
+    <p>Add new poll form component goes here</p>
+  {/if}
 </main>
 
 <Footer />
