@@ -2,6 +2,7 @@
   import Footer from "./components/Footer.svelte";
   import Header from "./components/Header.svelte";
   import Tabs from "./reuseable/Tabs.svelte";
+  import CreatePollsForm from "./components/CreatePollsForm.svelte";
 
   // Tabs
   const CURRENT_POLLS = "Current Polls";
@@ -20,7 +21,7 @@
 <main>
   <Tabs {tabList} {activeTab} on:handleTabChange={handleTabChange} />
   {#if activeTab === CURRENT_POLLS}
-    <p>Poll list component goes here</p>
+    <CreatePollsForm />
   {:else if activeTab === ADD_NEW_POLL}
     <p>Add new poll form component goes here</p>
   {/if}
