@@ -1,9 +1,12 @@
 <script>
   import Button from "../reuseable/Button.svelte";
+  import { createEventDispatcher } from "svelte";
 
   let fields = { question: "", answerA: "", answerB: "" };
   let errors = { question: "", answerA: "", answerB: "" };
   let isValid = false;
+
+  let dispatch = createEventDispatcher();
 
   const submitHandler = () => {
     isValid = true;
@@ -20,22 +23,23 @@
     // validate answer 1
     if (fields.answerA.trim().length < 1) {
       isValid = false;
-      errors.question = "Answer A cannot be empty.";
+      errors.answerA = "Answer A cannot be empty.";
     } else {
-      errors.question = "";
+      errors.answerA = "";
     }
 
     //  validate ans 2
     if (fields.answerB.trim().length < 1) {
       isValid = false;
-      errors.question = "Answer B cannot be empty.";
+      errors.answerB = "Answer B cannot be empty.";
     } else {
-      errors.question = "";
+      errors.answerB = "";
     }
   };
 
   if (isValid) {
-    console.log("valid", fields);
+    let poll = { ...fields, votesA: 0, votesB: 0, id: Math.random() };
+    dispatch("add", poll);
   }
 </script>
 
@@ -57,7 +61,9 @@
     <input type="text" id="answer-b" bind:value={fields.answerB} />
     <div class="errorMsg">{errors.answerB}</div>
   </div>
-  <Button flat={true} inverse={true}>Add Poll</Button>
+
+  <!-- FIXME: Broken button? -->
+  <Button>Add Poll</Button>
 </form>
 
 <style>

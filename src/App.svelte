@@ -11,8 +11,26 @@
   let tabList = [CURRENT_POLLS, ADD_NEW_POLL];
   let activeTab = CURRENT_POLLS;
 
+  let polls = [
+    {
+      id: 1,
+      question: "Python or JavaScript",
+      answerA: "Python",
+      answerB: "JavaScript",
+      votesA: 9,
+      votesB: 15,
+    },
+  ];
+
   const handleTabChange = (e) => {
     activeTab = e.detail;
+  };
+
+  const handleAddPoll = (e) => {
+    console.log(e);
+    const poll = e.detail;
+    polls = [poll, ...polls];
+    console.log("[CMD] 🐨 | handleAddPoll | polls:", polls);
   };
 </script>
 
@@ -23,7 +41,7 @@
   {#if activeTab === CURRENT_POLLS}
     <CreatePollsForm />
   {:else if activeTab === ADD_NEW_POLL}
-    <p>Add new poll form component goes here</p>
+    <CreatePollsForm on:add={handleAddPoll} />
   {/if}
 </main>
 
