@@ -7,7 +7,7 @@
   export let activeTab;
 </script>
 
-<div class="tabs">
+<div class="Tab">
   <ul>
     {#each tabList as tab}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -19,7 +19,7 @@
 </div>
 
 <style>
-  .tabs {
+  .Tab {
     margin-bottom: 40px;
   }
   ul {

@@ -1,7 +1,7 @@
 <script>
   import Footer from "./components/Footer.svelte";
   import Header from "./components/Header.svelte";
-  import Tabs from "./reuseable/Tabs.svelte";
+  import Tab from "./reuseable/Tab.svelte";
   import CreatePollsForm from "./components/CreatePollsForm.svelte";
   import PollList from "./components/PollList.svelte";
 
@@ -36,7 +36,7 @@
 <Header />
 
 <main>
-  <Tabs {tabList} {activeTab} on:handleTabChange={handleTabChange} />
+  <Tab {tabList} {activeTab} on:handleTabChange={handleTabChange} />
   {#if activeTab === CURRENT_POLLS}
     <PollList {polls} />
   {:else if activeTab === ADD_NEW_POLL}
