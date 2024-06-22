@@ -29,7 +29,6 @@
   const handleAddPoll = (e) => {
     const poll = e.detail;
     polls = [poll, ...polls];
-    console.log("[CMD] 🐨 | handleAddPoll | polls:", polls);
     activeTab = CURRENT_POLLS;
   };
 </script>
