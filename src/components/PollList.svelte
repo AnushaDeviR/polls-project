@@ -1,12 +1,27 @@
 <script>
+  import { onDestroy } from "svelte";
+  import PollStore from "../stores/PollStore";
   import PollDetails from "./PollDetails.svelte";
 
   export let polls = [];
+
+  /*
+  NOTE: METHOD 1- this is re-fired whenever the data is changed
+    const unsub = PollStore.subscribe((data) => {
+      polls = data;
+    });
+
+    onDestroy(() => {
+      unsub();
+    });
+  */
 </script>
 
 <div class="poll-list">
   <!-- NOTE: poll.id is the key -->
-  {#each polls as poll (poll.id)}
+  <!-- NOTE: METHOD 2- easier way to subscribe and unsubscribe to stores: $PollStore
+ -->
+  {#each $PollStore as poll (poll.id)}
     <PollDetails {poll} on:vote />
   {/each}
 </div>
