@@ -31,6 +31,24 @@
     polls = [poll, ...polls];
     activeTab = CURRENT_POLLS;
   };
+
+  const handleVote = (e) => {
+    const { id, option } = e.detail;
+
+    let copiedPolls = [...polls];
+    // finds the poll that matches the id from the copiedPolls
+    let upVotedPoll = copiedPolls.find((poll) => poll.id == id);
+
+    if (option === "a") {
+      upVotedPoll.votesA++;
+    }
+    if (option === "b") {
+      upVotedPoll.votesB++;
+    }
+
+    // reassign the updated data into polls
+    polls = copiedPolls;
+  };
 </script>
 
 <Header />
@@ -38,7 +56,7 @@
 <main>
   <Tab {tabList} {activeTab} on:handleTabChange={handleTabChange} />
   {#if activeTab === CURRENT_POLLS}
-    <PollList {polls} />
+    <PollList {polls} on:vote={handleVote} />
   {:else if activeTab === ADD_NEW_POLL}
     <CreatePollsForm on:add={handleAddPoll} />
   {/if}
