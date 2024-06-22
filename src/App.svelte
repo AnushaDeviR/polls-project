@@ -3,8 +3,8 @@
   import Header from "./components/Header.svelte";
   import Tabs from "./reuseable/Tabs.svelte";
   import CreatePollsForm from "./components/CreatePollsForm.svelte";
+  import PollList from "./components/PollList.svelte";
 
-  // Tabs
   const CURRENT_POLLS = "Current Polls";
   const ADD_NEW_POLL = "Add New Poll";
 
@@ -27,10 +27,10 @@
   };
 
   const handleAddPoll = (e) => {
-    console.log(e);
     const poll = e.detail;
     polls = [poll, ...polls];
     console.log("[CMD] 🐨 | handleAddPoll | polls:", polls);
+    activeTab = CURRENT_POLLS;
   };
 </script>
 
@@ -39,7 +39,7 @@
 <main>
   <Tabs {tabList} {activeTab} on:handleTabChange={handleTabChange} />
   {#if activeTab === CURRENT_POLLS}
-    <CreatePollsForm />
+    <PollList {polls} />
   {:else if activeTab === ADD_NEW_POLL}
     <CreatePollsForm on:add={handleAddPoll} />
   {/if}

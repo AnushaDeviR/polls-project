@@ -10,6 +10,7 @@
 <div class="tabs">
   <ul>
     {#each tabList as tab}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
       <li on:click={() => dispatch("handleTabChange", tab)}>
         <div class:active={tab === activeTab}>{tab}</div>
       </li>

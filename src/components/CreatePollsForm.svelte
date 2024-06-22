@@ -1,26 +1,24 @@
 <script>
-  import Button from "../reuseable/Button.svelte";
   import { createEventDispatcher } from "svelte";
-
-  let fields = { question: "", answerA: "", answerB: "" };
-  let errors = { question: "", answerA: "", answerB: "" };
-  let isValid = false;
+  import Button from "../reuseable/Button.svelte";
 
   let dispatch = createEventDispatcher();
 
-  const submitHandler = () => {
-    isValid = true;
+  let fields = { question: "", answerA: "", answerB: "" };
+  let errors = { question: "", answerA: "", answerB: "" };
 
-    //  validate question
+  const submitHandler = () => {
+    let isValid = true;
+
+    // Validate question
     if (fields.question.trim().length < 5) {
-      // question should at least be 5 characters long
       isValid = false;
       errors.question = "Questions must be at least 5 characters long.";
     } else {
       errors.question = "";
     }
 
-    // validate answer 1
+    // Validate answer A
     if (fields.answerA.trim().length < 1) {
       isValid = false;
       errors.answerA = "Answer A cannot be empty.";
@@ -28,19 +26,19 @@
       errors.answerA = "";
     }
 
-    //  validate ans 2
+    // Validate answer B
     if (fields.answerB.trim().length < 1) {
       isValid = false;
       errors.answerB = "Answer B cannot be empty.";
     } else {
       errors.answerB = "";
     }
-  };
 
-  if (isValid) {
-    let poll = { ...fields, votesA: 0, votesB: 0, id: Math.random() };
-    dispatch("add", poll);
-  }
+    if (isValid) {
+      let poll = { ...fields, votesA: 0, votesB: 0, id: Math.random() };
+      dispatch("add", poll);
+    }
+  };
 </script>
 
 <form on:submit|preventDefault={submitHandler}>
@@ -62,7 +60,6 @@
     <div class="errorMsg">{errors.answerB}</div>
   </div>
 
-  <!-- FIXME: Broken button? -->
   <Button>Add Poll</Button>
 </form>
 
