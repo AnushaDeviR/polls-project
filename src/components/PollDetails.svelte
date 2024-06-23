@@ -1,6 +1,7 @@
 <script>
-  import { createEventDispatcher } from "svelte";
   import Card from "../reuseable/Card.svelte";
+  import PollStore from "../stores/PollStore.js";
+
   export let poll = [];
 
   //   reactive values:
@@ -8,10 +9,21 @@
   $: percentageA = Math.floor((100 / totalVotes) * poll.votesA);
   $: percentageB = Math.floor((100 / totalVotes) * poll.votesB);
 
-  const dispatch = createEventDispatcher();
+  const handleVotes = (option, id) => {
+    PollStore.update((currentPolls) => {
+      let copiedPolls = [...currentPolls];
+      // finds the poll that matches the id from the copiedPolls
+      let upVotedPoll = copiedPolls.find((poll) => poll.id == id);
 
-  const dispatchVotes = (option, id) => {
-    dispatch("vote", { option, id });
+      if (option === "a") {
+        upVotedPoll.votesA++;
+      }
+      if (option === "b") {
+        upVotedPoll.votesB++;
+      }
+
+      return copiedPolls;
+    });
   };
 </script>
 
@@ -20,12 +32,12 @@
     <h3>{poll.question}</h3>
     <p>Total votes: {totalVotes}</p>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="answer" on:click={() => dispatchVotes("a", poll.id)}>
+    <div class="answer" on:click={() => handleVotes("a", poll.id)}>
       <div class="percent percent-a" style="width: {percentageA}%"></div>
       <span>{poll.answerA} ({poll.votesA})</span>
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="answer" on:click={() => dispatchVotes("b", poll.id)}>
+    <div class="answer" on:click={() => handleVotes("b", poll.id)}>
       <div class="percent percent-b" style="width: {percentageB}%"></div>
       <span>{poll.answerB} ({poll.votesB})</span>
     </div>

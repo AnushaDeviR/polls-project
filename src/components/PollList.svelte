@@ -1,9 +1,7 @@
 <script>
   import { onDestroy } from "svelte";
-  import PollStore from "../stores/PollStore";
+  import PollStore from "../stores/PollStore.js";
   import PollDetails from "./PollDetails.svelte";
-
-  export let polls = [];
 
   /*
   NOTE: METHOD 1- this is re-fired whenever the data is changed
