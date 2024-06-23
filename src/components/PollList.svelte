@@ -1,5 +1,6 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { fade, slide, scale } from "svelte/transition";
+  import { flip } from "svelte/animate";
   import PollStore from "../stores/PollStore.js";
   import PollDetails from "./PollDetails.svelte";
 
@@ -20,7 +21,10 @@
   <!-- NOTE: METHOD 2- easier way to subscribe and unsubscribe to stores: $PollStore
  -->
   {#each $PollStore as poll (poll.id)}
-    <PollDetails {poll} on:vote />
+    <!-- NOTE: transitions, animations cannot be added to custom components but to only html elements -->
+    <div in:fade out:scale|local animate:flip={{ duration: 500 }}>
+      <PollDetails {poll} />
+    </div>
   {/each}
 </div>
 
